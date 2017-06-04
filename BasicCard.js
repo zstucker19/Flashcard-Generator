@@ -9,6 +9,8 @@ var BasicCard = function(front, back) {
 
 	console.log(this.front);
 	console.log(this.back);
+
+	startCards();
 };
 
 
@@ -32,6 +34,25 @@ var createCard = function() {
 	})
 };
 
-	createCard();
+function startCards() {
+	inquirer.prompt([
+	{
+		name: "check",
+		message: "Would you like to make a new flash card?"
+	}
+		]).then(function(answers) {
+			if(answers.check === "yes" || answers.check === "Yes") {
+				createCard();
+			} else if(answers.check === "no" || answers.check === "No") {
+				return true;
+			} else {
+				console.log("Please say yes or no...");
+				startCards();
+			}
+		})
+};
+
+	startCards();
+
 
 module.exports = BasicCard;

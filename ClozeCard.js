@@ -11,9 +11,11 @@ var ClozeCard = function(text, cloze) {
 
 	this.partial = this.fullText.replace(this.cloze, "...");
 
-	console.log(this.text);
+	console.log(this.fullText);
 	console.log(this.cloze);
 	console.log(this.partial);
+
+	startCards();
 
 } else {
 	console.log("Error");
@@ -40,7 +42,25 @@ var createCard = function() {
 	})
 };
 
-	createCard();
+function startCards() {
+	inquirer.prompt([
+	{
+		name: "check",
+		message: "Would you like to make a new flash card?"
+	}
+		]).then(function(answers) {
+			if(answers.check === "yes" || answers.check === "Yes") {
+				createCard();
+			} else if(answers.check === "no" || answers.check === "No") {
+				return true;
+			} else {
+				console.log("Please say yes or no...");
+				startCards();
+			}
+		})
+};
+
+	startCards();
 
 
 
